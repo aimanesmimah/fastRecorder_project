@@ -2,6 +2,8 @@
 
 # Fast Recorder JS
 
+[![npm version](https://badge.fury.io/js/fastrecorder.svg)](https://badge.fury.io/js/fastrecorder)
+
 Fast Recorder is a simple, easy to use library built on top of javascript browser api whose purpose is to provide developers with ready to consume functions allowing them to perform recording tasks quickly 
 without the need of the browser api messing up
 
@@ -80,7 +82,7 @@ bower install && run the index.html file locally
 
 ## License
 
-FastRecorder.js is freely distributable under the terms of the MIT LICENSE
+FastRecorder.js is freely distributable under the terms of the [MIT LICENSE](https://github.com/cloudstrife9494/fastRecorder_project/blob/master/LICENSE)
 
 
 
