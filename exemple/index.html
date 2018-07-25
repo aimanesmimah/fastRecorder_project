@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>fast recorder</title>
+    <link rel="stylesheet" href="../bower_components/animate.css/animate.min.css"/>
+    <link rel="stylesheet" href="./main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../dist/fast-recorder.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <div  id='app'>
+        <div class="container">
+                <!--<div id="logo">
+                    <img src="./img/fastlogo.png" alt="" />
+                </div>-->
+                <h2 class="title unvisible">Fast Recorder js</h2>
+                <p class="description unvisible-desc">a small library to perform recording tasks efficiently with zero effort</p>
+            <div class="animated zoomIn tasks-container">
+                <div class="control-buttons">
+                    <button id="record" v-on:click="onstartClick" >start recording</button>
+                    <button id="checkSupport" v-on:click="onrestartClick">restart</button>
+                    <button id="pauseRecord" v-on:click="onpauseClick">pause recording</button>
+                    <button id="resumeRecord" v-on:click="onresumeClick">resume recording</button>
+                    <button id="stopRecord" v-on:click="onstopClick" >stop recording</button>
+                    <button id="sayText" v-on:click="onsayTextOne" >sayText</button>
+                    <button id="sayText2" v-on:click="onsayTextTwo">say text 2</button>
+                </div>
+                <div class="record-player">
+                    <div  id='recording-box'>
+                        <img src="./img/fastlogo.png" alt="">
+                        <p class="recording" v-if='recording'>recording since:  {{recordingCounter}}s</p>
+                        <!--<div id="recording-effect"></div>-->
+                    </div>
+                    <div v-if="silenceDetected" class="silence-section">
+                        <p class="animated zoomIn">Silence detected after: {{silenceDetectedAfter}}s</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <button class="github-link animated bounceInUp" v-on:click="redirectionClick" >
+                <img src="./img/Octocat.png" alt="" />
+                <span>View on GITHUB</span>
+            </button>
+            <transition name="fadeIn">
+                <div v-show="showFooter">
+                        <p>Exemple powered by: </p>
+                        <img src="./img/vue.png" alt="" >
+                </div>
+            </transition>
+        </div>
+    </div>
+
+     <script>
+
+           var vue = new Vue({
+               el: '#app',
+               data: {
+                   audioRecorder:null,
+                   audioRecorder2:null,
+                   showTitle: false,
+                   showFooter: false,
+                   recording: false,
+                   recordingCounter: 0,
+                   source: null,
+                   silenceDetected: false,
+                   silenceDetectedAfter: 0
+               },
+               methods:{
+                    checkSupport: function(){
+                          alert('check support functionality to do')
+                    },
+                    onstartClick: function(){
+                        alert('start click')
+                        var self=this;
+                        this.audioRecorder.startRecording(function(){
+                                self.recording=true
+                                if(self.silenceDetected){
+                                    self.silenceDetected=false
+                                }
+                            },function(playbackTime){
+                                //alert('silence')
+                                console.log('audio silence detection from html...after: '+ playbackTime)
+                                self.silenceDetected= true;
+                                self.silenceDetectedAfter= playbackTime
+
+                                self.audioRecorder.stopRecording(function(err,result){
+                                    if(err){
+                                        console.log(err)
+                                        return;
+                                    }
+                                    
+                                    self.recording=false
+                                
+                                    
+                                })
+                            },function (time) {
+                                self.recordingCounter= time;
+                                console.log('happening in html since: '+ time + 's')
+                            });
+                    },
+                    onrestartClick: function(){
+                          alert('restart click')
+                          var self= this;
+                            this.audioRecorder.restart(function(err){
+                                if(err){
+                                    console.log(err)
+                                    return;
+                                }
+
+                                self.recording=true
+                                if(self.silenceDetected){
+                                    self.silenceDetected=false
+                                }
+                            },function(){
+
+                            },function(time){
+                                self.recordingCounter= time
+                            })
+                    },
+                    onpauseClick: function(){
+                        var self= this
+                        this.audioRecorder.pause(function(err,url,time){
+                            if(err){
+                                alert('pause error: '+ err)
+                                return
+                            }
+                            
+                            alert(time)
+                            self.audioRecorder.playAudio(url)
+                        })
+                    },
+                    onresumeClick: function(){
+                        this.audioRecorder.resume(function(err,result){
+                                if(err){
+                                    console.log('err resume: ' + err)
+                                    return 
+                                }
+
+                                console.log(result)
+                        })
+                    },
+                    onstopClick: function(){
+                        var self= this
+                        this.audioRecorder.stopRecording(function (err,result,url) {
+                                        if(err){
+                                            console.log(err)
+                                            return;
+                                        }
+                                        console.log(result)
+                                        console.log('url: ' + url)
+                                        
+                                        $('.recording').addClass('animated flipOutX')
+                                        setTimeout(function(){
+                                            self.recording= false;
+                                            $('.recording').removeClass('animated flipOutX')
+                                        },700)
+                                        //userSpeech.src= URL.createObjectURL(result);
+                                        self.audioRecorder.exportResampledAudio(result,function(err,buffer){
+                                            if(err){
+                                                console.log(err)
+                                                return;
+                                            }
+
+                                            console.log('buffer: '+ JSON.stringify(buffer))
+                                        })
+                                        
+                                        // file can be uploaded to a storage platform like firebase
+                                        var file = self.audioRecorder.exportAsMP3('myFile')
+                                        console.log('file: ' + file)
+                            })
+                    },
+                    onsayTextOne: function(){
+                        // add onStart onFinish speech events
+                        this.audioRecorder.speakText({
+                            text: "hello, I'm glad to see you using fast recorder library",
+                            voice: 'woman'
+                        },function(){
+                            console.log('started')
+                        },function(){
+                            console.log('finished') 
+                        })
+                    },
+                    onsayTextTwo: function(){
+                        this.audioRecorder2= new FastRecorder.audioRecorder()
+                        this.audioRecorder2.speakText({
+                            text: "hello, I'm glad to see you using fast recorder library",
+                            voice: 'man'
+                        })
+                    },
+                    redirectionClick: function(){
+                        window.location.href= 'https://github.com/cloudstrife9494/fastRecorder_project#readme'
+                    }
+                },
+               created(){
+                    var self= this;
+                    setTimeout(function(){
+                         $('.title').removeClass('unvisible')
+                         $('.title').addClass('animated bounceIn')
+
+                         setTimeout(function(){
+                             $('.description').removeClass('unvisible-desc')
+                             $('.description').addClass('animated pulse')
+                         },1000)
+                    },600)
+
+                    setTimeout(function(){
+                        self.showFooter= true;
+                    },2000)
+               },
+               updated(){
+                       //alert('update')
+                       if(this.recording){
+                            $('.recording-box img').addClass('animated wobble')
+                            setTimeout(()=>{
+                                $('.recording-box img').removeClass('animated wobble')
+                            },3000)
+                       }
+               },
+               mounted(){
+                        console.log('app mounted')
+
+                        // time should be given in ms
+                        this.audioRecorder= new FastRecorder.audioRecorder()
+                        this.audioRecorder.configureSilence({time: 5000 })             
+                }
+           })
+     </script>
+</body>
+</html>

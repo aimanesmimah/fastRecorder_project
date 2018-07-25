@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+body{
+    height: 100vh;
+    background: -moz-radial-gradient(circle at bottom right,white,#c5e1f8,#5fc7f1,#42c7f0);
+    background: -o-radial-gradient(circle at bottom right,white,#c5e1f8,#5fc7f1,#42c7f0);
+    background: -webkit-radial-gradient(circle at bottom right,white,#c5e1f8,#5fc7f1,#42c7f0);
+    background: radial-gradient(circle at bottom right,white,#c5e1f8,#5fc7f1,#42c7f0);
+}
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:50%;
+    /*border: 1px solid black;*/
+    margin: 120px auto;
+}
+
+.container h2{
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #3499eb
+}
+
+#logo{
+    /* border: 1px solid black;*/
+    background: black;
+    width: 100%;
+     text-align: center;
+     margin-bottom: 20px;
+     box-shadow: 0px 0px 10px #333
+ }
+ 
+ #logo img{
+     width: 400px;
+     height: 130px;
+     margin: auto
+ }
+
+.unvisible{
+    visibility: hidden
+}
+
+.description{
+    margin: 10px 0;
+    padding: 0;
+    align-self: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 17px;
+    color: rgb(52, 153, 235,0.9)
+}
+
+.unvisible-desc{
+    visibility: hidden
+}
+
+
+.tasks-container{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   background: black;
+   width: 100%;
+   box-shadow: 0px 0px 8px rgb(44, 43, 43,1) 
+}
+
+.control-buttons{
+    display: flex;
+    flex-direction: column ;
+    justify-content: space-between;
+    padding: 10px 0;
+    height: 280px;
+}
+
+.control-buttons button{
+   background: none;
+   border: none;
+   border-radius: 2px;
+   box-shadow: 0px 0px 4px rgb(182, 226, 247);
+   height: 30px;
+   font-size: 13px;
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   color: rgb(182, 226, 247);
+   cursor: pointer;
+
+   transition: all .2s ease-in
+}
+
+.control-buttons button:hover {
+    transform: scale(1.1,1.1);
+}
+
+.record-player{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 80px 0;
+}
+
+#recording-box{
+    position: relative;
+    /*width: 350px;
+    height:80px;
+    border-radius: 15px;
+    background-color: #4bd4fd;
+    box-shadow: 1px 1px 3px #333 inset;*/
+}
+
+#recording-box img{
+    width: 350px;
+    height: 100px;
+    margin: auto
+}
+
+.recording{
+    margin: 0 0 0 5%;
+    padding: 0;
+    z-index: 10;
+    font-size: 20px;
+    color : white
+}
+
+.silence-section{
+    color : white;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.footer{
+    margin: 100px 0
+}
+
+.github-link{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height:60px;
+    width: 180px;
+    margin: auto;
+    padding: 0 20px;
+    border: 1.5px solid black;
+    border-radius: 20px;
+    background: none;
+    text-decoration: none;
+    color : black;
+    cursor: pointer;
+
+    transition: all .3s ease-in;
+}
+
+.github-link:hover{
+    background: #3499eb;
+    color: white
+}
+
+.github-link:focus{
+    outline: none
+}
+
+.github-link img{
+    width: 40px;
+    height: 40px
+}
+
+.github-link span {
+    align-self: center;
+    /*border: 2px solid black;*/
+    font-size: 15px
+}
+
+.footer div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 400px;
+    margin: 20px auto;
+    text-align: center;
+
+}
+
+.footer p {
+    margin-top: 20px;
+    font-size: 20px;
+    /*font-weight: 600;*/
+    font-family: 'Oswald', sans-serif;
+}
+
+
+.footer div img {
+    margin-top: 5px;
+    width: 120px;
+    height: 60px;
+}
+
+.fadeIn-enter-active, .fadeIn-leave-active {
+    transition: opacity .5s ease-in-out;
+    transition: transform .8s ease-out;
+    opacity: 1;
+    transform: translateY(0px)
+  }
+  
+  .fadeIn-enter, .fadeIn-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(7px)
+  }
