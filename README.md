@@ -5,7 +5,8 @@
 [![npm version](https://badge.fury.io/js/fastrecorder.svg)](https://badge.fury.io/js/fastrecorder)
 
 Fast Recorder is a simple, easy to use library built on top of javascript browser api whose purpose is to provide developers with ready to consume functions allowing them to perform recording tasks quickly 
-without the need of the browser api messing up
+without the need of the browser api messing up, one of the perks of that one is that it makes audio processing 
+to detect silence within the stream 
 
 
 ## Features
@@ -49,7 +50,8 @@ without the need of the browser api messing up
 
 
 ## API
-# Library methods
+
+### Library methods
 
 * recorder.startRecording(onStart,onSilence,onHappening)
 
