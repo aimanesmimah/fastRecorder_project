@@ -1,0 +1,15 @@
+{
+  "name": "fastrecorderexemple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "npm test "
+  },
+  "author": "cloud strife",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
