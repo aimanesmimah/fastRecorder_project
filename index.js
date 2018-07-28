@@ -16,7 +16,7 @@ app.get('/',function(req,res){
 })
 
 app.get('/error',function(req,res){
-    res.json({error: 'page not found', validUrl : 'http://localhost:3000'})
+    res.json({error: 'page not found', localhostUrl : 'http://localhost:3000', deploymentUrl: 'https://fastrecorder.herokuapp.com'})
 })
 
 
