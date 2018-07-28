@@ -28,7 +28,7 @@ to detect silence within the stream
 * playing record
 
 
-## Installation && Usage
+## Installation & Usage
 
 - Include the pre-compiled javascript production bundle
 
